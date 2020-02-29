@@ -7,7 +7,7 @@ const templateTitle = {
 };
 
 // JSX - Javascript XML
-var template = (
+const template = (
   <div>
     <h1>{templateTitle.title}</h1>
     {templateTitle.subtitle ? <p>{templateTitle.subtitle}</p> : ""}
@@ -35,7 +35,7 @@ function getLocation(location) {
   }
 }
 
-var templateTwo = (
+const templateTwo = (
   <div>
     <h1>{userObj.name || "Anonymous"}</h1>
     {userObj.age >= 18 ? <p>Age: {userObj.age}</p> : ""}
@@ -43,7 +43,7 @@ var templateTwo = (
   </div>
 );
 
-var appRoot = document.getElementById("app");
+const appRoot = document.getElementById("app");
 
 ReactDOM.render(template, appRoot);
 // ReactDOM.render(templateTwo, appRoot);
