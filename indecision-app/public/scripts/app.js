@@ -4,7 +4,8 @@ console.log("App.js is running!");
 
 var templateTitle = {
   title: "Indecision? Away!",
-  subtitle: "resolving all your doubts"
+  subtitle: "resolving all your doubts",
+  options: []
 };
 
 // JSX - Javascript XML
@@ -16,10 +17,15 @@ var template = React.createElement(
     null,
     templateTitle.title
   ),
-  React.createElement(
+  templateTitle.subtitle ? React.createElement(
     "p",
     null,
     templateTitle.subtitle
+  ) : "",
+  React.createElement(
+    "p",
+    null,
+    templateTitle.options.length > 0 ? "Here are your options:" : "No options :("
   ),
   React.createElement(
     "ol",
@@ -37,15 +43,22 @@ var template = React.createElement(
   )
 );
 
-var userName = "Erwin";
-var userAge = 97;
-var userLocation = "Switzerland";
-
 var userObj = {
-  name: userName,
-  age: userAge,
-  location: userLocation
+  name: "Erwin",
+  age: 97,
+  location: "Switzerland"
 };
+
+function getLocation(location) {
+  if (location) {
+    return React.createElement(
+      "p",
+      null,
+      "Location: ",
+      location
+    );
+  }
+}
 
 var templateTwo = React.createElement(
   "div",
@@ -53,20 +66,15 @@ var templateTwo = React.createElement(
   React.createElement(
     "h1",
     null,
-    userName
+    userObj.name || "Anonymous"
   ),
-  React.createElement(
+  userObj.age >= 18 ? React.createElement(
     "p",
     null,
     "Age: ",
-    userAge
-  ),
-  React.createElement(
-    "p",
-    null,
-    "Location: ",
-    userLocation
-  )
+    userObj.age
+  ) : "",
+  getLocation(userObj.location)
 );
 
 var appRoot = document.getElementById("app");
