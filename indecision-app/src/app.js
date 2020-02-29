@@ -38,7 +38,7 @@ function renderTemplate() {
             <button onClick={resetList}>Reset list</button>
             <ol>
                 {appData.options.map(opt => (
-                    <li>{opt}</li>
+                    <li key={opt}>{opt}</li>
                 ))}
             </ol>
 

@@ -57,7 +57,7 @@ function renderTemplate() {
             appData.options.map(function (opt) {
                 return React.createElement(
                     "li",
-                    null,
+                    { key: opt },
                     opt
                 );
             })
