@@ -7,14 +7,11 @@ class IndecisionApp extends React.Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteSingleOption = this.handleDeleteSingleOption.bind(this);
   }
 
   handleDeleteOptions() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    });
+    this.setState(() => ({ options: [] }));
   }
 
   handlePick() {
@@ -30,11 +27,13 @@ class IndecisionApp extends React.Component {
       return "Duplicate option";
     }
 
-    this.setState(prev => {
-      return {
-        options: prev.options.concat(option)
-      };
-    });
+    this.setState(prev => ({ options: prev.options.concat(option) }));
+  }
+
+  handleDeleteSingleOption(option) {
+    const optionIndex = this.state.options.indexOf(option);
+    this.state.options.splice(optionIndex, 1);
+    this.setState(prev => ({ options: prev.options }));
   }
 
   render() {
@@ -51,6 +50,7 @@ class IndecisionApp extends React.Component {
         <Options
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteSingleOption={this.handleDeleteSingleOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
       </div>
@@ -93,7 +93,11 @@ const Options = props => {
       <button onClick={props.handleDeleteOptions}>Clear list</button>
       <ol>
         {props.options.map(opt => (
-          <Option key={opt} text={opt} />
+          <Option
+            key={opt}
+            text={opt}
+            handleDeleteSingleOption={props.handleDeleteSingleOption}
+          />
         ))}
       </ol>
     </div>
@@ -101,7 +105,14 @@ const Options = props => {
 };
 
 const Option = props => {
-  return <li>{props.text}</li>;
+  return (
+    <li>
+      {props.text}{" "}
+      <button onClick={e => props.handleDeleteSingleOption(props.text)}>
+        Remove
+      </button>
+    </li>
+  );
 };
 
 class AddOption extends React.Component {
@@ -117,9 +128,7 @@ class AddOption extends React.Component {
     const error = this.props.handleAddOption(option);
     e.target.elements.option.value = "";
 
-    this.setState(() => {
-      return { error };
-    });
+    this.setState(() => ({ error }));
   }
 
   render() {

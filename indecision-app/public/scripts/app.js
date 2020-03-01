@@ -22,6 +22,7 @@ var IndecisionApp = function (_React$Component) {
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
     _this.handlePick = _this.handlePick.bind(_this);
     _this.handleAddOption = _this.handleAddOption.bind(_this);
+    _this.handleDeleteSingleOption = _this.handleDeleteSingleOption.bind(_this);
     return _this;
   }
 
@@ -29,9 +30,7 @@ var IndecisionApp = function (_React$Component) {
     key: "handleDeleteOptions",
     value: function handleDeleteOptions() {
       this.setState(function () {
-        return {
-          options: []
-        };
+        return { options: [] };
       });
     }
   }, {
@@ -51,9 +50,16 @@ var IndecisionApp = function (_React$Component) {
       }
 
       this.setState(function (prev) {
-        return {
-          options: prev.options.concat(option)
-        };
+        return { options: prev.options.concat(option) };
+      });
+    }
+  }, {
+    key: "handleDeleteSingleOption",
+    value: function handleDeleteSingleOption(option) {
+      var optionIndex = this.state.options.indexOf(option);
+      this.state.options.splice(optionIndex, 1);
+      this.setState(function (prev) {
+        return { options: prev.options };
       });
     }
   }, {
@@ -72,7 +78,8 @@ var IndecisionApp = function (_React$Component) {
         }),
         React.createElement(Options, {
           options: this.state.options,
-          handleDeleteOptions: this.handleDeleteOptions
+          handleDeleteOptions: this.handleDeleteOptions,
+          handleDeleteSingleOption: this.handleDeleteSingleOption
         }),
         React.createElement(AddOption, { handleAddOption: this.handleAddOption })
       );
@@ -132,7 +139,11 @@ var Options = function Options(props) {
       "ol",
       null,
       props.options.map(function (opt) {
-        return React.createElement(Option, { key: opt, text: opt });
+        return React.createElement(Option, {
+          key: opt,
+          text: opt,
+          handleDeleteSingleOption: props.handleDeleteSingleOption
+        });
       })
     )
   );
@@ -142,7 +153,15 @@ var Option = function Option(props) {
   return React.createElement(
     "li",
     null,
-    props.text
+    props.text,
+    " ",
+    React.createElement(
+      "button",
+      { onClick: function onClick(e) {
+          return props.handleDeleteSingleOption(props.text);
+        } },
+      "Remove"
+    )
   );
 };
 
