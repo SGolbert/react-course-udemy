@@ -5,16 +5,33 @@ import Action from "./Action";
 import Options from "./Options";
 
 class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: props.options
-    };
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-    this.handlePick = this.handlePick.bind(this);
-    this.handleAddOption = this.handleAddOption.bind(this);
-    this.handleDeleteSingleOption = this.handleDeleteSingleOption.bind(this);
-  }
+  state = { options: this.props.options };
+
+  handleDeleteOptions = () => {
+    this.setState(() => ({ options: [] }));
+  };
+
+  handlePick = () => {
+    const randomNum = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[randomNum];
+    alert(option);
+  };
+
+  handleAddOption = option => {
+    if (!option) {
+      return "Enter a valid value";
+    } else if (this.state.options.indexOf(option) > -1) {
+      return "Duplicate option";
+    }
+
+    this.setState(prev => ({ options: prev.options.concat(option) }));
+  };
+
+  handleDeleteSingleOption = option => {
+    const optionIndex = this.state.options.indexOf(option);
+    this.state.options.splice(optionIndex, 1);
+    this.setState(prev => ({ options: prev.options }));
+  };
 
   componentDidMount() {
     try {
@@ -36,32 +53,6 @@ class IndecisionApp extends React.Component {
 
   componentWillUnmount() {
     console.log("Component unmounted!");
-  }
-
-  handleDeleteOptions() {
-    this.setState(() => ({ options: [] }));
-  }
-
-  handlePick() {
-    const randomNum = Math.floor(Math.random() * this.state.options.length);
-    const option = this.state.options[randomNum];
-    alert(option);
-  }
-
-  handleAddOption(option) {
-    if (!option) {
-      return "Enter a valid value";
-    } else if (this.state.options.indexOf(option) > -1) {
-      return "Duplicate option";
-    }
-
-    this.setState(prev => ({ options: prev.options.concat(option) }));
-  }
-
-  handleDeleteSingleOption(option) {
-    const optionIndex = this.state.options.indexOf(option);
-    this.state.options.splice(optionIndex, 1);
-    this.setState(prev => ({ options: prev.options }));
   }
 
   render() {
