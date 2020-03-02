@@ -1,11 +1,15 @@
 .add-option-form {
   display: flex;
   padding: $s-size $m-size;
+}
 
-  input {
-    flex: 1;
-    margin-right: 10px;
-  }
+.add-option-input {
+  background: $dark-blue;
+  border-bottom: 0.3rem solid darken($dark-blue, 10%);
+  color: $off-white;
+  flex: 1;
+  margin-right: $s-size;
+  padding: $s-size;
 }
 
 .add-option-error {

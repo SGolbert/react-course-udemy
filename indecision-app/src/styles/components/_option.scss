@@ -5,3 +5,8 @@
   justify-content: space-between;
   padding: $l-size $m-size;
 }
+
+.option-text {
+  word-break: break-all;
+  margin-right: 10px;
+}
