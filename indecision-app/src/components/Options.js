@@ -3,7 +3,9 @@ import Option from "./Option";
 
 const Options = props => (
   <div>
-    <button onClick={props.handleDeleteOptions}>Clear list</button>
+    <button className="button button--link" onClick={props.handleDeleteOptions}>
+      Clear list
+    </button>
     {props.options.length == 0 && <p>Please enter some values</p>}
     <ol>
       {props.options.map(opt => (
