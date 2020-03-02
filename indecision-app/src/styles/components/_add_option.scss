@@ -1,0 +1,9 @@
+.add-option-form {
+  display: flex;
+  padding: $s-size $m-size;
+
+  input {
+    flex: 1;
+    margin-right: 10px;
+  }
+}

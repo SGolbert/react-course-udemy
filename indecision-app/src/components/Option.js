@@ -1,7 +1,7 @@
 import React from "react";
 
 const Option = props => (
-  <li>
+  <li className="option">
     {props.text}{" "}
     <button
       className="button button--link"
