@@ -3,3 +3,8 @@ node_modules/
 playground/
 
 *.log
+
+**/public/bundle.js
+**/public/bundle.js.*
+**/public/styles.css
+**/public/styles.css.*
